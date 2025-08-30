@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mast MultiTools</title>
+    <link rel="stylesheet" href="home-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Mast MultiTools</h1>
+        <p>All-in-One Free Online Tools</p>
+    </header>
+
+    <main>
+        <section class="tools-list">
+            <h2>Our Popular Tools</h2>
+            
+            <div class="tool-card">
+                <h3>Word Counter</h3>
+                <p>Count words and characters in your text.</p>
+                <a href="javascript:void(0)" onclick="openTool('tools/word-counter/')">Use Tool</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>PDF Converter</h3>
+                <p>Convert PDF to other formats.</p>
+                <a href="javascript:void(0)" onclick="openTool('tools/pdf-converter/')">Use Tool</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>AI Image Generator</h3>
+                <p>Create amazing images from text descriptions using AI</p>
+                <a href="javascript:void(0)" onclick="openTool('tools/ai-image-generator/')">Use Tool</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Mast MultiTools. All rights reserved.</p>
+    </footer>
+
+    <!-- Tool Modals -->
+    <div id="toolModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="modal.js"></script>
+</body>
+</html>
