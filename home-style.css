@@ -1,4 +1,98 @@
-/* Modal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #667eea;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    color: #666;
+    font-size: 1.2rem;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tools-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.tool-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+}
+
+.tool-card h3 {
+    color: #667eea;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+}
+
+.tool-card p {
+    margin-bottom: 1.2rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.tool-card a {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.tool-card a:hover {
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    color: #666;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -8,27 +102,49 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    overflow: hidden; /* Naya line add karo */
 }
 
 .modal-content {
     background-color: white;
-    margin: 2% auto; /* Change from 5% to 2% */
+    margin: 2% auto;
     padding: 0;
     border-radius: 15px;
     width: 90%;
-    max-width: 900px; /* Thoda increase karo */
-    max-height: 85vh; /* Increase height */
+    max-width: 900px;
+    max-height: 85vh;
     overflow-y: auto;
     position: relative;
-    top: 50%; /* Naya line add karo */
-    transform: translateY(-50%); /* Naya line add karo */
 }
 
-/* Tool iframe styling */
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    z-index: 1001;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
 .tool-iframe {
     width: 100%;
-    height: 75vh; /* Increase height */
+    height: 75vh;
     border: none;
     border-radius: 0 0 15px 15px;
+}
+
+@media (max-width: 768px) {
+    .tools-list {
+        grid-template-columns: 1fr;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
 }

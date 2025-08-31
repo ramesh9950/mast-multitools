@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thumbnail Maker - Mast MultiTools</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Fabric.js for Canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1><a href="../../../index.html">Mast MultiTools</a></h1>
+        <p>Advanced Thumbnail Maker</p>
+    </header>
+
+    <main>
+        <div class="thumbnail-editor">
+            <!-- Left Sidebar -->
+            <div class="sidebar left">
+                <div class="tool-section">
+                    <h3>📁 Upload</h3>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+                
+                <div class="tool-section">
+                    <h3>🖌️ Text</h3>
+                    <div class="text-tools">
+                        <button title="Bold">B</button>
+                        <button title="Italic">I</button>
+                        <button title="Underline">U</button>
+                        <input type="color" id="textColor">
+                        <select id="fontFamily">
+                            <option>Arial</option>
+                            <option>Times New Roman</option>
+                            <option>Impact</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>🔺 Shapes</h3>
+                    <div class="shape-tools">
+                        <button title="Rectangle">⬜</button>
+                        <button title="Circle">🔴</button>
+                        <button title="Line">➖</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Canvas Area -->
+            <div class="canvas-container">
+                <canvas id="thumbnailCanvas" width="1280" height="720"></canvas>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar right">
+                <div class="tool-section">
+                    <h3>⚙️ Settings</h3>
+                    <label>Width: <input type="number" id="canvasWidth" value="1280"></label>
+                    <label>Height: <input type="number" id="canvasHeight" value="720"></label>
+                </div>
+
+                <div class="tool-section">
+                    <h3>💾 Export</h3>
+                    <button id="downloadBtn">Download PNG</button>
+                    <button id="downloadJpg">Download JPG</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Mast MultiTools. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
