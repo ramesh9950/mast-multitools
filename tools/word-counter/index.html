@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Mast MultiTools</title>
+    <link rel="stylesheet" href="../../home-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        #textInput {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            resize: vertical;
+            min-height: 200px;
+            margin-bottom: 1.5rem;
+            font-family: inherit;
+        }
+        
+        .results {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+        
+        .results p {
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="../../index.html">Mast MultiTools</a></h1>
+        <p>Word Counter Tool</p>
+    </header>
+
+    <main>
+        <section class="tool-container">
+            <textarea id="textInput" placeholder="Type or paste your text here..." rows="10"></textarea>
+            <div class="results">
+                <p>Words: <span id="wordCount">0</span></p>
+                <p>Characters: <span id="charCount">0</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Mast MultiTools. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const textArea = document.getElementById('textInput');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+
+        textArea.addEventListener('input', () => {
+            const text = textArea.value;
+            charCount.textContent = text.length;
+            
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCount.textContent = words.length;
+        });
+    </script>
+</body>
+</html>
