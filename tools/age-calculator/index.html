@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calculator-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .calculator-card h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        button:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .result {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .result h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .age-result {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #764ba2;
+            margin: 1rem 0;
+        }
+
+        .age-details {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .age-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            min-width: 100px;
+            margin: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .age-box h3 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .age-box p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .age-details {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .age-box {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-calculator"></i> Age Calculator</h1>
+        <p>Find out your exact age in years, months, and days</p>
+    </header>
+    
+    <main>
+        <div class="calculator-card">
+            <h2>Enter Your Birthdate</h2>
+            <div class="input-group">
+                <label for="birthdate"><i class="fas fa-calendar-alt"></i> Select Your Birthdate</label>
+                <input type="date" id="birthdate" max="2023-12-31">
+            </div>
+            
+            <button id="calculate-btn">
+                <i class="fas fa-calculator"></i> Calculate My Age
+            </button>
+        </div>
+        
+        <div class="result" id="result">
+            <h2>Your Age Is</h2>
+            <div class="age-result" id="age-result">0 years</div>
+            
+            <div class="age-details">
+                <div class="age-box">
+                    <h3 id="years">0</h3>
+                    <p>Years</p>
+                </div>
+                <div class="age-box">
+                    <h3 id="months">0</h3>
+                    <p>Months</p>
+                </div>
+                <div class="age-box">
+                    <h3 id="days">0</h3>
+                    <p>Days</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <p>Created with ❤️ | &copy; 2023 Age Calculator</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const birthdateInput = document.getElementById('birthdate');
+            const resultDiv = document.getElementById('result');
+            const ageResult = document.getElementById('age-result');
+            const yearsEl = document.getElementById('years');
+            const monthsEl = document.getElementById('months');
+            const daysEl = document.getElementById('days');
+            
+            // Set max date to today
+            const today = new Date();
+            const maxDate = today.toISOString().split('T')[0];
+            birthdateInput.max = maxDate;
+            
+            calculateBtn.addEventListener('click', function() {
+                const birthdate = new Date(birthdateInput.value);
+                
+                if (!birthdateInput.value) {
+                    alert('Please select your birthdate');
+                    return;
+                }
+                
+                // Calculate age
+                const ageDetails = calculateAge(birthdate);
+                
+                // Update UI
+                ageResult.textContent = `${ageDetails.years} years`;
+                yearsEl.textContent = ageDetails.years;
+                monthsEl.textContent = ageDetails.months;
+                daysEl.textContent = ageDetails.days;
+                
+                // Show result
+                resultDiv.classList.add('active');
+            });
+            
+            function calculateAge(birthdate) {
+                const today = new Date();
+                
+                let years = today.getFullYear() - birthdate.getFullYear();
+                let months = today.getMonth() - birthdate.getMonth();
+                let days = today.getDate() - birthdate.getDate();
+                
+                // Adjust negative months
+                if (months < 0 || (months === 0 && days < 0)) {
+                    years--;
+                    months += 12;
+                }
+                
+                // Adjust negative days
+                if (days < 0) {
+                    const lastMonth = new Date(today.getFullYear(), today.getMonth() - 1, 0);
+                    days += lastMonth.getDate();
+                    months--;
+                }
+                
+                return {
+                    years: years,
+                    months: months,
+                    days: days
+                };
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Commit Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #00c9ff;
+            font-size: 1.3rem;
+        }
+        
+        .card-title i {
+            margin-right: 10px;
+        }
+        
+        .commit-info {
+            grid-column: 1 / -1;
+        }
+        
+        .commit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .commit-hash {
+            background: rgba(0, 201, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #00c9ff;
+        }
+        
+        .commit-message {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+            padding: 10px;
+            background: rgba(0, 201, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #92fe9d;
+        }
+        
+        .stat-label {
+            color: #a0a0a0;
+        }
+        
+        .file-stats {
+            margin-top: 20px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .file-changes {
+            font-family: monospace;
+            color: #92fe9d;
+        }
+        
+        .deleted {
+            color: #ff6b6b;
+        }
+        
+        .branch-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .branch-name {
+            display: flex;
+            align-items: center;
+            color: #00c9ff;
+        }
+        
+        .remote-info {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+        
+        .command-line {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        
+        .command {
+            color: #92fe9d;
+        }
+        
+        .path {
+            color: #00c9ff;
+        }
+        
+        .prompt {
+            color: #ff9d00;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            color: #0f2027;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 201, 255, 0.3);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Git Commit Dashboard</h1>
+            <p class="subtitle">Tracking repository changes and commit history</p>
+        </header>
+        
+        <div class="dashboard">
+            <div class="card commit-info">
+                <div class="commit-header">
+                    <h2>Latest Commit</h2>
+                    <span class="commit-hash">fea4b52</span>
+                </div>
+                
+                <div class="commit-message">
+                    <i class="fas fa-comment"></i> Fixed thumbnail maker with absolute paths
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-box">
+                        <i class="fas fa-file-code"></i>
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">Files Changed</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-plus-circle"></i>
+                        <div class="stat-value">82</div>
+                        <div class="stat-label">Insertions</div>
+                    </div>
+                    <div class="stat-box">
+                        <i class="fas fa-minus-circle"></i>
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Deletions</div>
+                    </div>
+                </div>
+                
+                <h3 class="card-title"><i class="fas fa-file-alt"></i> File Changes</h3>
+                <div class="file-stats">
+                    <div class="file-item">
+                        <span>thumbnail_maker.py</span>
+                        <span class="file-changes">82 insertions(+), 6 deletions(-)</span>
+                    </div>
+                </div>
+                
+                <div class="branch-info">
+                    <div class="branch-name">
+                        <i class="fas fa-code-branch"></i> main
+                    </div>
+                    <div class="remote-info">
+                        Pushed to origin/main
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-terminal"></i> Git Commands</h3>
+                <div class="command-line">
+                    <span class="prompt">PS</span> <span class="path">C:\Users\RAMESH\OneDrive\Desktop\multitool-website></span> <span class="command">git add .</span>
+                </div>
+                <div class="command-line">
+                    <span class="prompt">PS</span> <span class="path">C:\Users\RAMESH\OneDrive\Desktop\multitool-website></span> <span class="command">git commit -m "Fixed thumbnail maker with absolute paths"</span>
+                </div>
+                <div class="command-line">
+                    <span class="prompt">PS</span> <span class="path">C:\Users\RAMESH\OneDrive\Desktop\multitool-website></span> <span class="command">git push origin main</span>
+                </div>
+                
+                <a href="#" class="btn"><i class="fas fa-code-branch"></i> View Repository</a>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-info-circle"></i> Repository Info</h3>
+                <div class="file-item">
+                    <span><i class="fas fa-folder"></i> Repository Name</span>
+                    <span>mast-multitools</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-user"></i> Owner</span>
+                    <span>ramesh9950</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-network-wired"></i> Remote</span>
+                    <span>https://github.com/ramesh9950/mast-multitools.git</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-location-arrow"></i> Local Path</span>
+                    <span>C:\Users\RAMESH\OneDrive\Desktop\multitool-website</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3 class="card-title"><i class="fas fa-tachometer-alt"></i> Performance Metrics</h3>
+                <div class="file-item">
+                    <span><i class="fas fa-compress-arrows-alt"></i> Compression</span>
+                    <span class="file-changes">100% (5/5)</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-bolt"></i> Transfer Speed</span>
+                    <span class="file-changes">396.00 KiB/s</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-object-group"></i> Objects</span>
+                    <span class="file-changes">9 total, 5 written</span>
+                </div>
+                <div class="file-item">
+                    <span><i class="fas fa-exchange-alt"></i> Deltas</span>
+                    <span class="file-changes">100% (2/2) resolved</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Last updated: Just now | Dashboard designed for Git repository tracking</p>
+        </div>
+    </div>
+</body>
+</html>
